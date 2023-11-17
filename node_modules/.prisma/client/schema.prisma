@@ -12,3 +12,20 @@ model categorias {
     nomecat String  @unique
     
 }
+model projeto {
+    idprojeto    Int     @id @default(autoincrement())
+    nome  String
+    notas String
+    estado String
+    datainicio String
+    datafim String
+    idcat String
+   //   categorias   categorias @relation(fields: [idcat], references: [idcateg])
+}
+model utilizadores{
+    idutil String  @id @default(uuid())
+    name String  @db.VarChar(255)
+    email String @unique
+    pass String
+    isAdmin   Boolean @default(false)
+}
