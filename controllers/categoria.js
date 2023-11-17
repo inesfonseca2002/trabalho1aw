@@ -1,61 +1,61 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
-//return all students
+//return all categoriass
 exports.getAll = async (req, res) => {
     try {
         //read all from database
-        const response = await prisma.students.findMany();
+        const response = await prisma.categoriass.findMany();
         res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ msg: error.message })
     }
 }
 
-//return student by his id (student idcateg)
+//return categorias by his id (categorias idcateg)
 exports.getById = async (req, res) => {
-    //get student id requested
+    //get categorias id requested
     const id = req.params.idcateg;
     try {
-        //finds student by his id (idcateg)
-        const response = await prisma.students.findUnique({
+        //finds categorias by his id (idcateg)
+        const response = await prisma.categoriass.findUnique({
             where: {
                 idcateg: id,
             },
         })
-        //return student
+        //return categorias
         res.status(200).json(response)
     } catch (error) {
         res.status(404).json({ msg: error.message })
     }
 }
 
-//creates student
+//creates categorias
 exports.create = async (req, res) => {
-    //get requested student properties
+    //get requested categorias properties
     const {  nomecat } = req.body;
     try {
-        //creates new student
-        const student = await prisma.students.create({
+        //creates new categorias
+        const categorias = await prisma.categoriass.create({
             data: {
                 nomecat: nomecat,
 
             },
         })
-        //return student created
-        res.status(201).json(student)
+        //return categorias created
+        res.status(201).json(categorias)
     } catch (error) {
         res.status(400).json({ msg: error.message })
     }
 }
 
-//updates student
+//updates categorias
 exports.update = async (req, res) => {
     const { idcateg, nomecat } = req.body;
 
     try {
-        //find student to update their data
-        const student = await prisma.students.update({
+        //find categorias to update their data
+        const categorias = await prisma.categoriass.update({
             where: {
                 idcateg: idcateg,
             },
@@ -63,20 +63,20 @@ exports.update = async (req, res) => {
                 nomecat: nomecat
             },
         })
-        //return student updated
-        res.status(200).json(student)
+        //return categorias updated
+        res.status(200).json(categorias)
     } catch (error) {
         res.status(400).json({ msg: error.message })
     }
 }
 
-//delete student by his id (student idcateg)
+//delete categorias by his id (categorias idcateg)
 exports.delete = async (req, res) => {
-    //get student idcateg requested
+    //get categorias idcateg requested
     const idcateg = req.params.idcateg;
     try {
-        //delete student
-        await prisma.students.delete({
+        //delete categorias
+        await prisma.categoriass.delete({
             where: {
                 idcateg: idcateg,
             },

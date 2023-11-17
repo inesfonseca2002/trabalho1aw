@@ -4,6 +4,7 @@ const authRouter = require('./auth');
 
 
 router.use('/students', studentRouter);
+router.use('/categorias', categoriarouter);
 router.use('/auth', authRouter);
 
 
