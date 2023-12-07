@@ -10,6 +10,7 @@ datasource db {
 model categorias {
     idcateg    Int     @id @default(autoincrement())
     nomecat String  @unique
+    projetos projeto[]
     
 }
 model projeto {
@@ -19,8 +20,9 @@ model projeto {
     estado String
     datainicio String
     datafim String
-    idcat String
-   //   categorias   categorias @relation(fields: [idcat], references: [idcateg])
+    categoria categorias @relation(fields: [idcat], references: [idcateg])
+    idcat Int
+
 }
 model utilizadores{
     idutil String  @id @default(uuid())
