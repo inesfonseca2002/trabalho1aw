@@ -1,33 +1,43 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model categorias {
-    idcateg    Int     @id @default(autoincrement())
-    nomecat String  @unique
-    projetos projeto[]
-    
+  idcateg  Int       @id @default(autoincrement())
+  nomecat  String    @unique
+  projetos projeto[]
 }
-model projeto {
-    idprojeto    Int     @id @default(autoincrement())
-    nome  String
-    notas String
-    estado String
-    datainicio String
-    datafim String
-    categoria categorias @relation(fields: [idcat], references: [idcateg])
-    idcat Int
 
+model projeto {
+  idprojeto  Int                    @id @default(autoincrement())
+  nome       String
+  notas      String
+  estado     String
+  datainicio String
+  datafim    String
+  categoria  categorias             @relation(fields: [idcat], references: [idcateg])
+  idcat      Int
+  projetos  utilizadoresprojetos[]
 }
-model utilizadores{
-    idutil String  @id @default(uuid())
-    name String  @db.VarChar(255)
-    email String @unique
-    pass String
-    isAdmin   Boolean @default(false)
+
+model utilizadores {
+  idutil   Int                    @id @default(autoincrement())
+  name     String                 @db.VarChar(255)
+  email    String                 @unique
+  pass     String
+  isAdmin  Boolean                @default(false)
+ // projetos utilizadoresprojetos[]
+}
+
+model utilizadoresprojetos {
+  id        Int          @id @default(autoincrement())
+  projeto   projeto      @relation(fields: [idproject], references: [idprojeto])
+  idproject Int
+ // users     utilizadores @relation(fields: [idUser], references: [idutil])
+  //idUser    Int
 }

@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 exports.getAll = async (req, res) => {
     try {
         //read all from database
-        const response = await prisma.categoriass.findMany();
+        const response = await prisma.categorias.findMany();
         res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ msg: error.message })
@@ -18,9 +18,9 @@ exports.getById = async (req, res) => {
     const id = req.params.idcateg;
     try {
         //finds categorias by his id (idcateg)
-        const response = await prisma.categoriass.findUnique({
+        const response = await prisma.categorias.findUnique({
             where: {
-                idcateg: id,
+                idcateg: Number(id),
             },
         })
         //return categorias
@@ -36,7 +36,7 @@ exports.create = async (req, res) => {
     const {  nomecat } = req.body;
     try {
         //creates new categorias
-        const categorias = await prisma.categoriass.create({
+        const categorias = await prisma.categorias.create({
             data: {
                 nomecat: nomecat,
 
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
 
     try {
         //find categorias to update their data
-        const categorias = await prisma.categoriass.update({
+        const categorias = await prisma.categorias.update({
             where: {
                 idcateg: idcateg,
             },
@@ -76,9 +76,9 @@ exports.delete = async (req, res) => {
     const idcateg = req.params.idcateg;
     try {
         //delete categorias
-        await prisma.categoriass.delete({
+        await prisma.categorias.delete({
             where: {
-                idcateg: idcateg,
+                idcateg: Number(idcateg),
             },
         })
         //just return ok

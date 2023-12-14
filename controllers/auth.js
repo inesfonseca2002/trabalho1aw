@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs/dist/bcrypt');
-const authenticateUtil = require('../../utils/authenticate.js');
+const authenticateUtil = require('../utils/authenticate.js');
 
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
