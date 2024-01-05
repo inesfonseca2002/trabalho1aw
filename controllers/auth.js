@@ -17,13 +17,17 @@ exports.signin = async (req, res) => {
         if (user) {
             var passwordIsValid = bcrypt.compareSync(
                 password,
-                user.password
+                user.pass
             );
 
             if (passwordIsValid) {
                 const accessToken = authenticateUtil.generateAccessToken({ id: user.id, name: user.name, isAdmin : user.isAdmin });
                 res.status(200).json({ name: user.name, token: accessToken });
+                return;
             }
+
+            res.status(401).json({ msg: error.message })
+
         }
 
     } catch (error) {
@@ -40,7 +44,7 @@ exports.signup = async (req, res) => {
             data: {
                 email: email,
                 name: name,
-                password: bcrypt.hashSync(password, 8),
+                pass: bcrypt.hashSync(password, 8),
                 isAdmin: isAdmin
             },
         })
